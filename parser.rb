@@ -18,13 +18,13 @@ class Parser
         if first_token.kind == Token::Variable
             var_name = first_token.name
             if @lexer.next_token().kind == Token::Assign
-                return (p @var_mng.set_name(var_name, operator_add()))
+                return @var_mng.set_name(var_name, operator_add())
             end
         elsif first_token.kind == Token::If
-            return p operator_boolean()
+            return operator_boolean()
         end
         @lexer.reset()
-        p operator_add()
+        operator_add()
     end
     
     def operator_boolean()

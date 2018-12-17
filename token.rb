@@ -16,8 +16,8 @@ class Token
     End =         16
     Equal =       17
     Greater =     18
-    Less =        18
-    EndLine =     19
+    Less =        19
+    EndLine =     20
 
     attr_reader :kind
     attr_accessor :value, :name
