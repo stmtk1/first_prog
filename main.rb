@@ -1,4 +1,6 @@
 require "./parser"
 
 
-puts Parser.new("a = 100 % 7 * (100 + 2) ").parse
+p = Parser.new()
+p.parse("a = 100 % 7 * (100 + 2)")
+p.parse("a + 1")

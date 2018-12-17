@@ -7,19 +7,21 @@ class Parser
 	AdditiveOperator = [Token::Plus, Token::Minus]
 	MultiplitiveOperator = [Token::Multiply, Token::Devide]
 	ModuloOperator = [Token::Modulo, Token::Power]
-	def initialize(input)
-		@lexer = Lexer.new(input)
+	def initialize
 		@var_mng = VariableManager.new
 	end
 	
-	def parse
+	def parse(input)
+		@lexer = Lexer.new(input)
 		first_token = @lexer.next_token()
 		if first_token.kind == Token::Variable
 			var_name = first_token.name
-			return @var_mng.set_name(var_name, operator_add()) if @lexer.next_token().kind == Token::Equal
+			if @lexer.next_token().kind == Token::Equal
+			return (p @var_mng.set_name(var_name, operator_add()))
+			end
 		end
 		@lexer.reset()
-		operator_add()
+		p operator_add()
 	end
 	
 	def operator_add
@@ -72,6 +74,8 @@ class Parser
 			ret = operator_add()
 			raise "Parse Error" if @lexer.next_token().kind != Token::RightParen
 			return ret
+		elsif ret.kind == Token::Variable
+			return @var_mng.get_name(ret.name)
 		elsif ret.kind == Token::Function
 			ret = operator_add()
 			raise "Parse Error" if @lexer.next_token().kind != Token::RightParen
