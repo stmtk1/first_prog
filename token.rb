@@ -9,8 +9,9 @@ class Token
 	Modulo = 	8
 	Number = 	9
 	Variable = 	10
-	Function = 	11
-	End =	 	12
+	Equal = 	11
+	Function = 	12
+	End =	 	13
 
 	attr_reader :kind
 	attr_accessor :value, :name

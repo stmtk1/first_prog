@@ -1,3 +1,5 @@
+require "./token"
+
 class Lexer
 	PlusPattern = /^\s*\+/
 	MinusPattern = /^\s*\-/
@@ -9,9 +11,11 @@ class Lexer
 	ModuloPattern = /^\s*%/
 	NumberPattern = /^\s*\d+/
 	FunctionPattern = /^\s*\w[\w\d_]*\(/
+	VariablePattern = /^\s*\w[\w\d_]*/
+	EqualPattern = /^\s*\=/
 	EndPattern = /^\s*$/
 	def initialize(input)
-		@analized_string = input
+		@first_string = @analized_string = input
 	end
 	
 	def next_token
@@ -43,6 +47,12 @@ class Lexer
 		when Lexer::FunctionPattern
 			token = Token.new(Token::Function)
 			token.name = $&
+		when Lexer::FunctionPattern
+			token = FunctionToken.new($&)
+		when Lexer::VariablePattern
+			token = VariableToken.new($&)
+		when Lexer::EqualPattern
+			token = Token.new(Token::Equal)
 		when Lexer::EndPattern
 			token = Token.new(Token::End)
 		else
@@ -54,6 +64,11 @@ class Lexer
 	
 	def revert
 		@return_previous_token = true
+	end
+	
+	def reset
+		@analized_string = @first_string
+		@return_previous_token = false
 	end
 end
 

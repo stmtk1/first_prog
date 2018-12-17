@@ -1,14 +1,25 @@
+require "./token"
+require "./lexer"
+require "./func"
+require "./variable"
+
 class Parser
 	AdditiveOperator = [Token::Plus, Token::Minus]
 	MultiplitiveOperator = [Token::Multiply, Token::Devide]
 	ModuloOperator = [Token::Modulo, Token::Power]
 	def initialize(input)
 		@lexer = Lexer.new(input)
+		@var_mng = VariableManager.new
 	end
 	
 	def parse
-		ret = operator_add()
-		ret
+		first_token = @lexer.next_token()
+		if first_token.kind == Token::Variable
+			var_name = first_token.name
+			return @var_mng.set_name(var_name, operator_add()) if @lexer.next_token().kind == Token::Equal
+		end
+		@lexer.reset()
+		operator_add()
 	end
 	
 	def operator_add
