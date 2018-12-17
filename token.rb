@@ -12,12 +12,13 @@ class Token
     Assign =      11
     Function =    12
     If =          14
-    Else =        15
-    End =         16
-    Equal =       17
-    Greater =     18
-    Less =        19
-    EndLine =     20
+    Then =        15
+    Else =        16
+    End =         17
+    Equal =       18
+    Greater =     19
+    Less =        20
+    EndLine =     21
 
     attr_reader :kind
     attr_accessor :value, :name

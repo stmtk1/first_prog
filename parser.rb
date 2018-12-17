@@ -21,10 +21,27 @@ class Parser
                 return @var_mng.set_name(var_name, operator_add())
             end
         elsif first_token.kind == Token::If
-            return operator_boolean()
+            if operator_boolean()
+                raise "Parse Error" if @lexer.next_token().kind != Token::Then
+                ret = operator_add()
+                raise "Parse Error" if @lexer.next_token().kind != Token::Else
+                return ret
+            else
+                raise "Parse Error" if @lexer.next_token().kind != Token::Then
+                skip_while_else()
+                return operator_add()
+            end
         end
         @lexer.reset()
         operator_add()
+    end
+    
+    def skip_while_else
+        token_kind = @lexer.next_token.kind
+        while token_kind != Token::Else && token_kind != Token::EndLine
+            token_kind = @lexer.next_token.kind
+        end
+        raise "Parse Error" if token_kind == Token::EndLine
     end
     
     def operator_boolean()
@@ -34,8 +51,6 @@ class Parser
         if operator == Token::Equal
             return num1 == num2
         elsif operator == Token::Greater
-            puts num1
-            puts num2
             return num1 > num2
         elsif operator == Token::Less
             return num1 < num2

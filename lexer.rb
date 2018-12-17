@@ -13,7 +13,9 @@ class Lexer
     FunctionPattern = /^\s*\w[\w\d_]*\(/
     VariablePattern = /^\s*\w[\w\d_]*/
     AssignPattern = /^\s*\=/
-    IfPattern = /^\s*if/
+    IfPattern = /^\s*if /
+    ThenPattern = /^\s*then /
+    ElsePattern = /^\s*else /
     EqualPattern = /^\s*\=\=/
     GreaterPattern = /^\s*>/
     LessPattern = /^\s*</
@@ -55,6 +57,10 @@ class Lexer
             token = FunctionToken.new($&)
         when Lexer::IfPattern
             token = Token.new(Token::If)
+        when Lexer::ThenPattern
+            token = Token.new(Token::Then)
+        when Lexer::ElsePattern
+            token = Token.new(Token::Else)
         when Lexer::EqualPattern
             token = Token.new(Token::Equal)
         when Lexer::GreaterPattern
