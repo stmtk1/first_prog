@@ -9,8 +9,7 @@ class VariableManager
     end
     
     def get_name(var_name)
-        #raise "not defined" if @names[var_name].nil?
-        puts var_name
+        raise "not defined" if @names[var_name].nil?
         @names[var_name]
     end
 end

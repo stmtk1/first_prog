@@ -51,9 +51,6 @@ class Lexer
             token = Token.new(Token::Number)
             token.value = $&.to_f
         when Lexer::FunctionPattern
-            token = Token.new(Token::Function)
-            token.name = $&
-        when Lexer::FunctionPattern
             token = FunctionToken.new($&)
         when Lexer::IfPattern
             token = Token.new(Token::If)

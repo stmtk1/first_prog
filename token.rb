@@ -35,11 +35,16 @@ class NumberToken < Token
     end
 end
 
-class FunctiuonToken < Token
+class FunctionToken < Token
     attr_reader :name
     def initialize(name)
         @kind = Token::Function
-        @name = name
+        @name = get_name(name)
+    end
+    
+    private
+    def get_name(str)
+        str.gsub(/\(/, "")
     end
 end
 

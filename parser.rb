@@ -10,6 +10,7 @@ class Parser
     BooleanOperator = [Token::Equal, Token::Greater, Token::Less]
     def initialize
         @var_mng = VariableManager.new
+        @func_mng = FunctionManager.new
     end
     
     def parse(input)
@@ -111,7 +112,7 @@ class Parser
         elsif ret.kind == Token::Variable
             return @var_mng.get_name(ret.name)
         elsif ret.kind == Token::Function
-            ret = operator_add()
+            ret = @func_mng.get_name(ret.name, operator_add())
             raise "Parse Error" if @lexer.next_token().kind != Token::RightParen
             return ret
         else

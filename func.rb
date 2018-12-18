@@ -1,6 +1,7 @@
-class FuncNameManager
+class FunctionManager
     def initialize
         @names = Hash.new
+        prelude_funcs()
     end
     
     def add_name(func_name, func_behabior)
@@ -10,7 +11,11 @@ class FuncNameManager
     
     def get_name(func_name, value)
         raise "not defined" if @names[func_name].nil?
-        @name[func_name]
+        @names[func_name].call(value)
+    end
+    
+    def prelude_funcs
+        @names["sqrt"] = lambda{|x| Math.sqrt(x) }
     end
 end
 
