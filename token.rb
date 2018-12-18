@@ -11,6 +11,7 @@ class Token
     Variable =    10
     Assign =      11
     Function =    12
+    Defun =       13
     If =          14
     Then =        15
     Else =        16

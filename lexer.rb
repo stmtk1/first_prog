@@ -11,6 +11,7 @@ class Lexer
     ModuloPattern = /^\s*%/
     NumberPattern = /^\s*\d+/
     FunctionPattern = /^\s*\w[\w\d_]*\(/
+    DefunPattern = /^\s*defun/
     VariablePattern = /^\s*\w[\w\d_]*/
     AssignPattern = /^\s*\=/
     IfPattern = /^\s*if /
@@ -52,6 +53,8 @@ class Lexer
             token.value = $&.to_f
         when Lexer::FunctionPattern
             token = FunctionToken.new($&)
+        when Lexer::DefunPattern
+            token = Token.new(Token::Defun)
         when Lexer::IfPattern
             token = Token.new(Token::If)
         when Lexer::ThenPattern

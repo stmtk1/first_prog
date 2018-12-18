@@ -32,6 +32,15 @@ class Parser
                 skip_while_else()
                 return operator_add()
             end
+        elsif first_token.kind == Token::Defun
+            expected_func = @lexer.next_token()
+            raise "parse Error" if expected_func.kind != Token::Function
+            func_name = expected_func.name
+            expected_var = @lexer.next_token()
+            raise "parse Error" if expected_var.kind != Token::Variable
+            var_name = expected_var.name
+            raise "parse Error" if @lexer.next_token().kind != Token::RightParen
+            return 1.0
         end
         @lexer.reset()
         operator_add()
