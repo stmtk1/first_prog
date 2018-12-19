@@ -4,13 +4,12 @@ class VariableManager
     end
     
     def set_name(var_name, value)
-        raise "already defined" unless @names[var_name].nil?
-        @names[var_name] = value
+        @names[var_name.strip] = value
     end
     
     def get_name(var_name)
-        raise "not defined" if @names[var_name].nil?
-        @names[var_name]
+        raise "not defined" if @names[var_name.strip].nil?
+        @names[var_name.strip]
     end
 end
 

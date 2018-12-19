@@ -40,7 +40,8 @@ class Parser
             raise "parse Error" if expected_var.kind != Token::Variable
             var_name = expected_var.name
             raise "parse Error" if @lexer.next_token().kind != Token::RightParen
-            return 1.0
+            @func_mng.add_name(expected_func.name, expected_var.name, @lexer.get_rest_all)
+            return
         end
         @lexer.reset()
         operator_add()

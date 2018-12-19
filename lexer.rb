@@ -9,7 +9,7 @@ class Lexer
     RightParenPattern = /^\s*\)/
     PowerPattern = /^\s*\^/
     ModuloPattern = /^\s*%/
-    NumberPattern = /^\s*\d+/
+    NumberPattern = /^\s*\d+(\.\d+)?/
     FunctionPattern = /^\s*\w[\w\d_]*\(/
     DefunPattern = /^\s*defun/
     VariablePattern = /^\s*\w[\w\d_]*/
@@ -87,6 +87,10 @@ class Lexer
     def reset
         @analized_string = @first_string
         @return_previous_token = false
+    end
+    
+    def get_rest_all
+        @analized_string
     end
 end
 
